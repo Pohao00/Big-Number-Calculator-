@@ -1,14 +1,25 @@
-#include <boost/lambda/lambda.hpp>
-#include "BigNumberCaculator.h"
+#include <wx/app.h>
+#include <wx/event.h>
+#include "MainFrame.h"
+#include <wx/image.h>
 
-int main()
+// Define the MainApp
+class MainApp : public wxApp
 {
-    BigNumberCaculatorProject::BigNumberCaculator run;
-    
-    run.addition("999", "499");
-    run.subtraction("99", "198");
-    run.multiplication("20", "0");
-    run.division("100", "59");
-    
-    return 0;
-}
+public:
+    MainApp() {}
+    virtual ~MainApp() {}
+
+    virtual bool OnInit() {
+        // Add the common image handlers
+        wxImage::AddHandler( new wxPNGHandler );
+        wxImage::AddHandler( new wxJPEGHandler );
+
+        MainFrame *mainFrame = new MainFrame(NULL);
+        SetTopWindow(mainFrame);
+        return GetTopWindow()->Show();
+    }
+};
+
+DECLARE_APP(MainApp)
+IMPLEMENT_APP(MainApp)

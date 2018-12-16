@@ -10,10 +10,10 @@ namespace BigNumberCaculatorProject {
     class BigNumberCaculator
     {
     public:
-        void addition(std::string inputData1, std::string inputData2);
-        void subtraction(std::string inputData1, std::string inputData2);
-        void multiplication(std::string inputData1, std::string inputData2);
-        void division(std::string inputData1, std::string inputData2);
+        std::vector<int> addition(std::string inputData1, std::string inputData2);
+        std::vector<int> subtraction(std::string inputData1, std::string inputData2);
+        std::vector<int> multiplication(std::string inputData1, std::string inputData2);
+        std::vector<int> division(std::string inputData1, std::string inputData2);
     protected:
         
     private:

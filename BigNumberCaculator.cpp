@@ -15,7 +15,7 @@ void BigNumberCaculatorProject::BigNumberCaculator::inputProcess(std::vector<int
     }
 }
 
-void BigNumberCaculatorProject::BigNumberCaculator::addition(std::string inputData1, std::string inputData2)
+std::vector<int> BigNumberCaculatorProject::BigNumberCaculator::addition(std::string inputData1, std::string inputData2)
 {
     std::vector<int> result;
     inputProcess(number1, inputData1);
@@ -38,6 +38,8 @@ for (int i = result.size()-1; i >= 0; i--) {
 }
     std::cout << std::endl;
 #endif    
+
+    return result;
 }
 
 void BigNumberCaculatorProject::BigNumberCaculator::compensationZero(std::vector<int>::iterator &number1_iter, std::vector<int>::iterator &number2_iter) {
@@ -73,7 +75,7 @@ bool BigNumberCaculatorProject::BigNumberCaculator::addition(std::vector<int>::i
     return true;
 }
 
-void BigNumberCaculatorProject::BigNumberCaculator::subtraction(std::string inputData1, std::string inputData2) {
+std::vector<int> BigNumberCaculatorProject::BigNumberCaculator::subtraction(std::string inputData1, std::string inputData2) {
     std::vector<int> result;
     
     inputProcess(number1, inputData1);
@@ -103,6 +105,8 @@ for (int i = result.size()-1; i >= 0; i--) {
 }
     std::cout << std::endl;
 #endif  
+    
+    return result;
 }
 
 bool BigNumberCaculatorProject::BigNumberCaculator::subtraction(std::vector<int>::iterator number1_iter, std::vector<int>::iterator number2_iter, std::vector<int> &result) {
@@ -127,7 +131,7 @@ bool BigNumberCaculatorProject::BigNumberCaculator::subtraction(std::vector<int>
     return true;
 }
 
-void BigNumberCaculatorProject::BigNumberCaculator::multiplication(std::string inputData1, std::string inputData2) {
+std::vector<int> BigNumberCaculatorProject::BigNumberCaculator::multiplication(std::string inputData1, std::string inputData2) {
     std::vector<int> result;
     
     inputProcess(number1, inputData1);
@@ -147,6 +151,8 @@ for (int i = result.size()-1; i >= 0; i--) {
 }
     std::cout << std::endl;
 #endif 
+
+    return result;
 }
 
 bool BigNumberCaculatorProject::BigNumberCaculator::multiplication(std::vector<int>::iterator number1_iter, std::vector<int>::iterator number2_iter, std::vector<int> &result) {
@@ -196,7 +202,7 @@ bool BigNumberCaculatorProject::BigNumberCaculator::multiplication(std::vector<i
     return true;
 }
 
-void BigNumberCaculatorProject::BigNumberCaculator::division(std::string inputData1, std::string inputData2 ) {
+std::vector<int> BigNumberCaculatorProject::BigNumberCaculator::division(std::string inputData1, std::string inputData2 ) {
     std::vector<int> result;
     std::vector<int> quotient_num(1, 0);
         
@@ -204,8 +210,8 @@ void BigNumberCaculatorProject::BigNumberCaculator::division(std::string inputDa
     inputProcess(number2, inputData2);
     original_num1 = number1;
     original_num2 = number2;
-    std::vector<int>::iterator number1_iter;
-    std::vector<int>::iterator number2_iter;
+    std::vector<int>::iterator number1_iter = number1.begin();
+    std::vector<int>::iterator number2_iter = number2.begin();
     
     division(number1_iter, number2_iter, quotient_num, result);
     
@@ -226,29 +232,35 @@ for (int i = result.size()-1; i >= 0; i--) {
     std::cout << std::endl;
 #endif 
     
+    return quotient_num;
 }
 
 bool BigNumberCaculatorProject::BigNumberCaculator::division(std::vector<int>::iterator number1_iter, std::vector<int>::iterator number2_iter, std::vector<int> &quotient_num, std::vector<int> &result ) {
-    unsigned int division_times = 0;
-    unsigned int quotient_num_digit = 0; 
-    
+    std::vector<int> tmp_number1, tmp_number2, tmp_quotient_num;
     while (1) {
+        std::vector<int> division_times(1, 1);
         compensationZero(number1_iter, number2_iter);
         
         result.clear();
         if (!subtraction(number1_iter, number2_iter, result)) {
             break;
         }
+        tmp_number1 = result;
+        tmp_number2 = number2;
         
-        number1 = result;
-        division_times++;
-        quotient_num[quotient_num_digit] = division_times;
-    
-        if (division_times == 10) {
-            quotient_num.push_back(1);
-            quotient_num_digit++;
-            division_times = 0;
-        }
+        number1 = division_times;
+        number2 = quotient_num;
+        
+        std::vector<int>::iterator division_times_iter = number1.begin();
+        std::vector<int>::iterator quotient_num_iter = number2.begin();
+        
+        compensationZero(division_times_iter, quotient_num_iter);
+        tmp_quotient_num.clear();
+        addition(division_times_iter, quotient_num_iter, tmp_quotient_num);
+        
+        quotient_num = tmp_quotient_num;
+        number1 = tmp_number1;
+        number2 = tmp_number2;
     }
     result = number1;
     return true;
