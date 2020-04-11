@@ -25,6 +25,7 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent,
         wxC9ED9InitBitmapResources();
         bBitmapLoaded = true;
     }
+    this->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE));
 
     wxBoxSizer* boxSizer1 = new wxBoxSizer(wxVERTICAL);
     this->SetSizer(boxSizer1);
@@ -171,8 +172,9 @@ MainFrameBaseClass::MainFrameBaseClass(wxWindow* parent,
     m_menuItem9 = new wxMenuItem(m_name8, wxID_ABOUT, _("About..."), wxT(""), wxITEM_NORMAL);
     m_name8->Append(m_menuItem9);
 
+    SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE));
     SetName(wxT("MainFrameBaseClass"));
-    SetSize(500, 330);
+    SetSize(-1, -1);
     if(GetSizer()) {
         GetSizer()->Fit(this);
     }

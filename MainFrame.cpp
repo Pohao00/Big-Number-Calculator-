@@ -1,5 +1,5 @@
 #include "MainFrame.h"
-#include "BigNumberCaculator.h"
+#include "BigNumberCaculator/BigNumberCaculator.h"
 #include <wx/aboutdlg.h>
 #include <string>
 
@@ -29,6 +29,47 @@ void MainFrame::OnAbout(wxCommandEvent& event)
     ::wxAboutBox(info);
 }
 
+void MainFrame::buttonClear(wxCommandEvent& event)
+{
+    inputNumber1.clear();
+    inputNumber2.clear();
+    operationType = No_Operator;
+    m_textCtrl21->SetLabel(inputNumber1);
+}
+
+void MainFrame::buttonPlus(wxCommandEvent& event)
+{
+    if (inputNumber1.size() > 0) {
+        operationType = Plus_Operator;
+        std::string str;
+        str.push_back(operationType);
+        m_textCtrl21->SetLabel(inputNumber1 + str);
+        inputNumber2.clear();
+    }
+}
+
+void MainFrame::buttonSub(wxCommandEvent& event)
+{
+    if (inputNumber1.size() > 0) {
+        operationType = Sub_Operator;
+        std::string str;
+        str.push_back(operationType);
+        m_textCtrl21->SetLabel(inputNumber1 + str);
+        inputNumber2.clear();
+    }
+}
+
+void MainFrame::buttonMulti(wxCommandEvent& event)
+{
+    if (inputNumber1.size() > 0) {
+        operationType = Multiple_Operator;
+        std::string str;
+        str.push_back(operationType);
+        m_textCtrl21->SetLabel(inputNumber1 + str);
+        inputNumber2.clear();
+    }
+}
+
 void MainFrame::buttonDivide(wxCommandEvent& event)
 {
     if (inputNumber1.size() > 0) {
@@ -37,20 +78,6 @@ void MainFrame::buttonDivide(wxCommandEvent& event)
         str.push_back(operationType);
         m_textCtrl21->SetLabel(inputNumber1 + str);
         inputNumber2.clear();
-    }
-}
-
-void MainFrame::buttonEight(wxCommandEvent& event)
-{
-    if (operationType == No_Operator) {
-        inputNumber1.push_back('8');
-        m_textCtrl21->SetLabel(inputNumber1);
-    }
-    else {
-        inputNumber2.push_back('8');
-        std::string str;
-        str.push_back(operationType);
-        m_textCtrl21->SetLabel(inputNumber1 + str + inputNumber2);
     }
 }
 
@@ -88,6 +115,20 @@ void MainFrame::buttonEqual(wxCommandEvent& event)
     }
 }
 
+void MainFrame::buttonEight(wxCommandEvent& event)
+{
+    if (operationType == No_Operator) {
+        inputNumber1.push_back('8');
+        m_textCtrl21->SetLabel(inputNumber1);
+    }
+    else {
+        inputNumber2.push_back('8');
+        std::string str;
+        str.push_back(operationType);
+        m_textCtrl21->SetLabel(inputNumber1 + str + inputNumber2);
+    }
+}
+
 void MainFrame::buttonFive(wxCommandEvent& event)
 {
     if (operationType == No_Operator) {
@@ -113,17 +154,6 @@ void MainFrame::buttonForth(wxCommandEvent& event)
         std::string str;
         str.push_back(operationType);
         m_textCtrl21->SetLabel(inputNumber1 + str + inputNumber2);
-    }
-}
-
-void MainFrame::buttonMulti(wxCommandEvent& event)
-{
-    if (inputNumber1.size() > 0) {
-        operationType = Multiple_Operator;
-        std::string str;
-        str.push_back(operationType);
-        m_textCtrl21->SetLabel(inputNumber1 + str);
-        inputNumber2.clear();
     }
 }
 
@@ -155,17 +185,6 @@ void MainFrame::buttonOne(wxCommandEvent& event)
     }
 }
 
-void MainFrame::buttonPlus(wxCommandEvent& event)
-{
-    if (inputNumber1.size() > 0) {
-        operationType = Plus_Operator;
-        std::string str;
-        str.push_back(operationType);
-        m_textCtrl21->SetLabel(inputNumber1 + str);
-        inputNumber2.clear();
-    }
-}
-
 void MainFrame::buttonSeven(wxCommandEvent& event)
 {
     if (operationType == No_Operator) {
@@ -191,17 +210,6 @@ void MainFrame::buttonSix(wxCommandEvent& event)
         std::string str;
         str.push_back(operationType);
         m_textCtrl21->SetLabel(inputNumber1 + str + inputNumber2);
-    }
-}
-
-void MainFrame::buttonSub(wxCommandEvent& event)
-{
-    if (inputNumber1.size() > 0) {
-        operationType = Sub_Operator;
-        std::string str;
-        str.push_back(operationType);
-        m_textCtrl21->SetLabel(inputNumber1 + str);
-        inputNumber2.clear();
     }
 }
 
@@ -247,12 +255,4 @@ void MainFrame::buttonZero(wxCommandEvent& event)
         str.push_back(operationType);
         m_textCtrl21->SetLabel(inputNumber1 + str + inputNumber2);
     }
-}
-
-void MainFrame::buttonClear(wxCommandEvent& event)
-{
-    inputNumber1.clear();
-    inputNumber2.clear();
-    operationType = No_Operator;
-    m_textCtrl21->SetLabel(inputNumber1);
 }

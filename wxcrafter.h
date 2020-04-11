@@ -221,7 +221,7 @@ public:
         wxWindowID id = wxID_ANY,
         const wxString& title = _("Big Number Calculator"),
         const wxPoint& pos = wxDefaultPosition,
-        const wxSize& size = wxSize(500, 330),
+        const wxSize& size = wxSize(-1, -1),
         long style = wxCAPTION | wxRESIZE_BORDER | wxMAXIMIZE_BOX | wxMINIMIZE_BOX | wxSYSTEM_MENU | wxCLOSE_BOX);
     virtual ~MainFrameBaseClass();
 };
